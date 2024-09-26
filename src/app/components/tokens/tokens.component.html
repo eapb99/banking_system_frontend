@@ -1,0 +1,40 @@
+<div class="container">
+    <h2>Tokens Asociados</h2>
+    <div *ngIf="cuentaOrigen">
+        <h3>Cuenta de Origen</h3>
+        <p><strong>Número:</strong> {{ cuentaOrigen.numero }}</p>
+        <p><strong>Tipo:</strong> {{ cuentaOrigen.tipo }}</p>
+        <p><strong>Saldo:</strong> {{ cuentaOrigen.saldo | currency }}</p>
+      </div>
+    <!-- Filtro para tokens -->
+     <button (click)="logout">logout</button>
+    <div>
+      <label for="filter">Filtrar por:</label>
+      <select id="filter" [(ngModel)]="filter" (change)="applyFilter()">
+        <option value="all">Todos</option>
+        <option value="valid">Válidos</option>
+        <option value="invalid">Inválidos</option>
+      </select>
+    </div>
+  
+    <!-- Tabla para listar tokens -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Token</th>
+          <th>Generado En</th>
+          <th>Usado En</th>
+          <th>Es Válido</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let token of filteredTokens">
+          <td>{{ token.token }}</td>
+          <td>{{ token.generado_en }}</td>
+          <td>{{ token.usado_en || 'No usado' }}</td>
+          <td>{{ token.es_valido ? 'Sí' : 'No' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

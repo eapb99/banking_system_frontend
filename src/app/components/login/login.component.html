@@ -1,6 +1,7 @@
 <div class="login-container">
+  <div class="login-card">
     <h2>Iniciar Sesión</h2>
-  
+
     <!-- Formulario de Login -->
     <form (ngSubmit)="onSubmit()">
       
@@ -17,12 +18,12 @@
       </div>
   
       <!-- Botón para iniciar sesión -->
-      <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+      <button type="submit" class="btn btn-primary btn-login">Iniciar Sesión</button>
     </form>
-  
+
     <!-- Mensaje de error si el login falla -->
     <div *ngIf="errorMessage" class="error-message">
       <p>{{ errorMessage }}</p>
     </div>
   </div>
-  
+</div>

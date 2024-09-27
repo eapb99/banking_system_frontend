@@ -22,15 +22,18 @@ export class LoginComponent {
 
         // Decodificar el token para obtener el user_id o username
         const userInfo = this.authService.getUserInfoFromToken();
-        console.log('Información del usuario:', userInfo);  // Aquí tendrás el user_id y el username
 
         // Aquí puedes redirigir al usuario a otra página, por ejemplo, un dashboard
-        this.route.navigate(['/tokens']);      
+        this.route.navigate(['/cuentas']);      
       },
       (error) => {
         console.error('Error al iniciar sesión', error);
         this.errorMessage = 'Usuario o contraseña incorrectos';
       }
     );
+  }
+
+  Onlogout(): void {
+    this.authService.logout();
   }
 }

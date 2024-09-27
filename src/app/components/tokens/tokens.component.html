@@ -1,13 +1,10 @@
 <div class="container">
-    <h2>Tokens Asociados</h2>
-    <div *ngIf="cuentaOrigen">
-      <div *ngFor="let token of cuentaOrigen">
-        <p>{{ token.numero }}</p>
-        <p>{{ token.saldo }}</p>
-        <p>{{ token.tipo }}</p>
-      </div>
-    </div>
-    <button (click)="ngOnNext()"> Realizar Transferencia</button>
+    <h2 style="text-align: center;">Listado de Tokens</h2>
+    
+    <!-- Cuentas como "Cards" -->
+    
+  
+  
     <!-- Filtro para tokens -->
     <div>
       <label for="filter">Filtrar por:</label>
@@ -17,24 +14,42 @@
         <option value="invalid">Inválidos</option>
       </select>
     </div>
-
-    <!-- Tabla para listar tokens -->
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Token</th>
-          <th>Generado En</th>
-          <th>Usado En</th>
-          <th>Es Válido</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let token of filteredTokens">
-          <td>{{ token.token }}</td>
-          <td>{{ token.generado_en }}</td>
-          <td>{{ token.usado_en || 'No usado' }}</td>
-          <td>{{ token.es_valido ? 'Sí' : 'No' }}</td>
-        </tr>
-      </tbody>
+  
+    <!-- Tabla con paginación -->
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="token">
+        <th mat-header-cell *matHeaderCellDef> Token </th>
+        <td mat-cell *matCellDef="let token"> {{token.token}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="generado_en">
+        <th mat-header-cell *matHeaderCellDef> Generado En </th>
+        <td mat-cell *matCellDef="let token"> {{token.generado_en}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="usado_en">
+        <th mat-header-cell *matHeaderCellDef> Usado En </th>
+        <td mat-cell *matCellDef="let token"> {{ token.usado_en || 'No usado' }} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="es_valido">
+        <th mat-header-cell *matHeaderCellDef> Es Válido </th>
+        <td mat-cell *matCellDef="let token"> {{token.es_valido ? 'Sí' : 'No'}} </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+  
+    <!-- Paginación -->
+    <mat-paginator [length]="tokens.length"
+                   [pageSize]="5"
+                   [pageSizeOptions]="[5, 10, 20]"
+                   showFirstLastButtons>
+    </mat-paginator>
   </div>
+  
+
+  <button mat-raised-button color="primary" (click)="ngOnNext()">Realizar Transferencia</button>
+  <button mat-raised-button color="primary" (click)="listarCuentas()">Volver</button>
+

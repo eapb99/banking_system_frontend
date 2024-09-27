@@ -1,0 +1,10 @@
+<nav class="navbar">
+    <div class="navbar-brand">
+      <a routerLink="/">Mi Aplicación</a>
+    </div>
+    
+    <div class="navbar-items">
+      <button *ngIf="isAuthenticated" (click)="onLogout()" class="btn btn-logout">Logout</button>
+    </div>
+  </nav>
+  

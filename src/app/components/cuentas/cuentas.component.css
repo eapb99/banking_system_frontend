@@ -1,0 +1,15 @@
+.card-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  
+  .cuenta-card {
+    width: 300px;
+    margin: 10px;
+  }
+
+  button {
+    margin:10px
+  }

@@ -1,0 +1,15 @@
+<div *ngIf="cuentaOrigen" class="card-container">
+    <mat-card *ngFor="let token of cuentaOrigen" class="cuenta-card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>Cuenta {{ token.numero }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Saldo: {{ token.saldo | currency }}</p>
+        <p>Tipo: {{ token.tipo }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <button mat-raised-button color="primary" (click)="realizarTransferencia()">Realizar Transferencia</button>
+  <button mat-raised-button color="primary" (click)="verTokens()">Ver Lista de Tokens</button>
+

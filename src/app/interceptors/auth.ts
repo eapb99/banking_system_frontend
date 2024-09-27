@@ -17,27 +17,18 @@ export class AuthInterceptor implements HttpInterceptor {
         headers: req.headers.set('Authorization', `Bearer ${token}`)
       });
 
-      // Enviar la solicitud con el token JWT
       return next.handle(clonedReq).pipe(
         catchError((error: HttpErrorResponse) => {
-          // Si la solicitud retorna un 401 (Unauthorized), refrescar el token
           if (error.status === 401 && this.authService.getRefreshToken()) {
-            // Intentar refrescar el token
             return this.authService.refreshToken().pipe(
               switchMap((response: any) => {
-                // Guardar el nuevo token
                 this.authService.saveToken(response.access);
-
-                // Clonar la solicitud original con el nuevo token
                 const newReq = req.clone({
                   headers: req.headers.set('Authorization', `Bearer ${response.access}`)
                 });
-
-                // Reintentar la solicitud original con el nuevo token
                 return next.handle(newReq);
               }),
               catchError((refreshError) => {
-                // Si el refresh falla, cerrar sesión
                 this.authService.logout();
                 return throwError(refreshError);
               })
@@ -48,8 +39,6 @@ export class AuthInterceptor implements HttpInterceptor {
         })
       );
     }
-
-    // Si no hay token, continuar la solicitud sin modificarla
     return next.handle(req);
   }
 }

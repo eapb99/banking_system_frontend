@@ -27,6 +27,10 @@ export class AuthService {
     return localStorage.getItem('jwt_token');
   }
 
+  isLoggedIn(): boolean {
+    return !!this.getToken();
+  }
+
   getRefreshToken(): string | null {
     return localStorage.getItem('refresh_token');
   }
@@ -47,6 +51,10 @@ export class AuthService {
 
   obtenerCuentaOrigen(): Observable<any> {
     return this.http.get(`${this.apiUrl}/obtener_cuenta_origen/`);
+  }
+
+  obtenerContactos(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/obtener_contactos/`);
   }
 
   decodeToken(token: string): any {
@@ -73,7 +81,6 @@ export class AuthService {
   // Método para cerrar sesión y borrar el token
   logout(): void {
     localStorage.removeItem('jwt_token');
-    localStorage.removeItem('refresh_token');
   }
 
 
@@ -86,5 +93,9 @@ export class AuthService {
       token
     };
     return this.http.post(`${this.apiUrl}/transferencia/`, body);
+  }
+
+  generarTokenSeguridad(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/generarToken/`);
   }
 }

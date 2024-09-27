@@ -1,13 +1,14 @@
 <div class="container">
     <h2>Tokens Asociados</h2>
     <div *ngIf="cuentaOrigen">
-        <h3>Cuenta de Origen</h3>
-        <p><strong>Número:</strong> {{ cuentaOrigen.numero }}</p>
-        <p><strong>Tipo:</strong> {{ cuentaOrigen.tipo }}</p>
-        <p><strong>Saldo:</strong> {{ cuentaOrigen.saldo | currency }}</p>
+      <div *ngFor="let token of cuentaOrigen">
+        <p>{{ token.numero }}</p>
+        <p>{{ token.saldo }}</p>
+        <p>{{ token.tipo }}</p>
       </div>
+    </div>
+    <button (click)="ngOnNext()"> Realizar Transferencia</button>
     <!-- Filtro para tokens -->
-     <button (click)="logout">logout</button>
     <div>
       <label for="filter">Filtrar por:</label>
       <select id="filter" [(ngModel)]="filter" (change)="applyFilter()">
@@ -16,7 +17,7 @@
         <option value="invalid">Inválidos</option>
       </select>
     </div>
-  
+
     <!-- Tabla para listar tokens -->
     <table class="table">
       <thead>
@@ -37,4 +38,3 @@
       </tbody>
     </table>
   </div>
-  

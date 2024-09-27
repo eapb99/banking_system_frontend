@@ -1,0 +1,25 @@
+<div>
+  <h2>Realizar Transferencia</h2>
+
+  <form (ngSubmit)="realizarTransferencia()">
+    <label for="cuentaOrigen">Cuenta de Origen</label>
+    <input type="number" [(ngModel)]="cuentaOrigen" name="cuentaOrigen" required>
+
+    <label for="cuentaDestino">Cuenta de Destino</label>
+    <input type="number" [(ngModel)]="cuentaDestino" name="cuentaDestino" required>
+
+    <label for="monto">Monto</label>
+    <input type="number" [(ngModel)]="monto" name="monto" required>
+
+    <label for="motivo">Motivo</label>
+    <input type="text" [(ngModel)]="motivo" name="motivo">
+
+    <label for="token">Token de Seguridad</label>
+    <input type="text" [(ngModel)]="token" name="token" required>
+
+    <button type="submit">Transferir</button>
+  </form>
+
+  <p *ngIf="mensaje">{{ mensaje }}</p>
+  <p *ngIf="error" style="color: red;">{{ error }}</p>
+</div>

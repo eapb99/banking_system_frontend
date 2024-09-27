@@ -9,12 +9,14 @@ import { TokensComponent } from './components/tokens/tokens.component';  // Impo
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth';
+import { TransferenciaComponent } from './components/transferencia/transferencia.component';
   // Importar AuthInterceptor
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    TokensComponent
+    TokensComponent,
+    TransferenciaComponent
   ],
   imports: [
     BrowserModule,

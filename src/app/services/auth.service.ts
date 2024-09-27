@@ -27,6 +27,18 @@ export class AuthService {
     return localStorage.getItem('jwt_token');
   }
 
+  getRefreshToken(): string | null {
+    return localStorage.getItem('refresh_token');
+  }
+
+  saveRefreshToken(refreshToken: string): void {
+    localStorage.setItem('refresh_token', refreshToken);
+  }
+
+  refreshToken(): Observable<any> {
+    const refreshToken = this.getRefreshToken();
+    return this.http.post(`${this.apiUrl}/token/refresh/`, { refresh: refreshToken });
+  }
 
   // Método para decodificar el JWT y obtener el payload (user_id, username, etc.)
   listarTokens(): Observable<any> {
@@ -61,6 +73,18 @@ export class AuthService {
   // Método para cerrar sesión y borrar el token
   logout(): void {
     localStorage.removeItem('jwt_token');
-    
+    localStorage.removeItem('refresh_token');
+  }
+
+
+  realizarTransferencia(cuenta_origen: string, cuenta_destino: string, monto: number, motivo: string, token: string): Observable<any> {
+    const body = {
+      cuenta_origen,
+      cuenta_destino,
+      monto,
+      motivo,
+      token
+    };
+    return this.http.post(`${this.apiUrl}/transferencia/`, body);
   }
 }

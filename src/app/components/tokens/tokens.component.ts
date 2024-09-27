@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -11,14 +12,15 @@ export class TokensComponent implements OnInit {
   tokens: any[] = [];  // Lista de tokens obtenidos del backend
   filteredTokens: any[] = [];  // Lista de tokens filtrados
   filter: string = 'all';  // Filtro por defecto (todos los tokens)
-  cuentaOrigen: any = null;  // Información de la cuenta de origen
+  cuentaOrigen: any[] = [];  // Información de la cuenta de origen
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router:Router) { }
 
   ngOnInit(): void {
     this.authService.obtenerCuentaOrigen().subscribe(
       (response) => {
-        this.cuentaOrigen = response.cuenta_origen;
+        this.cuentaOrigen = response.cuentas;
+        console.log('Cuenta de origen:', this.cuentaOrigen);
       },
       (error) => {
         console.error('Error al obtener cuenta de origen:', error);
@@ -49,6 +51,9 @@ export class TokensComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+  }
 
+  ngOnNext(): void {
+    this.router.navigate(['/transferencia']);
   }
 }
